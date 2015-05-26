@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+	
+	<head>
+		<title>Minutemailer Data.js</title>
+		<style>
+			* {
+				-webkit-box-sizing: border-box;
+				-moz-box-sizing: border-box;
+				box-sizing: border-box;
+				margin: 0;
+				padding: 0;
+			}
+			
+			html {
+				background: #f9fbfc;
+				font: 400 16px/1.6 sans-serif;
+			}
+			
+			html, button, input {
+				-webkit-font-smoothing: antialiased;
+			}
+			
+			body {
+				text-rendering: optimizeLegibility;
+				max-width: 600px;
+				margin: 100px auto;
+			}
+			
+			.code {
+				padding: 1px 3px;
+				border: 1px solid #e1e1e8;
+				background: #fff;
+			}
+			
+			p {
+				margin: 0 0 10px;
+			}
+			
+			section {
+				margin-top: 30px;
+				padding-top: 30px;
+				border-top: 1px solid #e1e1e8;
+			}
+		</style>
+	</head>
+	
+	<body>
+		<h1>Data.js</h1>
+		
+		<section>
+			<p>This value is listening to <span class="code">message</span>: <strong class="data" id="aMessage" data-mm-bind="message">waiting</strong></p>
+			<p><small>Type in <code class="code">mmData('message').update('Hi there!');</code> in the console to update the value.</small></p>
+		</section>
+		
+		<section>
+			<p>You can remove all listeners or just on single elements. To remove a listener: <code class="code">mmData(element).unbind()</code>. To remove all listeners: <code class="code">mmData('message').removeListeners();</code></p>
+		</section>
+		
+		<section>
+			<p>You bind elements by adding the attribute <code class="code">data-mm-bind="message"</code> to the element. If you want to programmatically bind an element you can use <code class="code">mmData(element).bind('message')</code></p>
+		</section>
+		
+		<script src="index.js"></script>
+		<script>
+			mmData('message').update('mjau');
+		</script>
+	</body>
+	
+</html>
