@@ -1,2 +1,2 @@
-# vjs
+# Data
 Lightweight data binding
