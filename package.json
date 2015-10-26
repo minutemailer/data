@@ -1,0 +1,28 @@
+{
+  "name": "mm-data",
+  "version": "0.0.1",
+  "description": "Lightweight data binding",
+  "main": "index.js",
+  "scripts": {
+    "build": "uglifyjs index.js -o mm-data.min.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://tbleckert@github.com/minutemailer/data.git"
+  },
+  "keywords": [
+    "data",
+    "lightweight",
+    "subscribe",
+    "data-binding"
+  ],
+  "author": "Tobias Bleckert (Minutemailer)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/minutemailer/data/issues"
+  },
+  "homepage": "https://github.com/minutemailer/data#readme",
+  "devDependencies": {
+    "uglify-js": "^2.5.0"
+  }
+}
