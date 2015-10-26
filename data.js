@@ -9,15 +9,18 @@
 	}
 	
 }(this, function () {
+
+	'use strict';
 	
 	var Data = (function () {
 		
-		var module = function (instance) {
-			if (this === window) {
-				return new module(instance);
+		var module = function (id) {
+			if (this === window || typeof this === 'undefined') {
+				return new module(id);
 			}
 			
-			this.instance = instance;
+			this.id = id;
+
 			return this;
 		};
 		
@@ -37,38 +40,28 @@
 				}
 			},
 			
-			bind: function (what) {
-				var elements;
-				
-				if (!what) {
+			subscribe: function (element) {
+				if (!element) {
 					return;
 				}
 				
-				this.onElement(function () {
-					try {
-						this.setAttribute('data-mm-bind', what);
-					} catch (e) {
-						
-					}
-				});
+				element.setAttribute('data-mm-bind', this.id);
 				
 				return this;
 			},
 			
-			unbind: function () {
-				this.onElement(function () {
-					try {
-						this.removeAttribute('data-mm-bind');
-					} catch (e) {
-						
-					}
-				});
+			unsubscribe: function (element) {
+				if (!element) {
+					return;
+				}
+				
+				element.removeAttribute('data-mm-bind');
 				
 				return this;
 			},
 			
-			removeListeners: function () {
-				var listeners = document.querySelectorAll('[data-mm-bind="' + this.instance + '"]');
+			removeSubscribers: function () {
+				var subscribers = document.querySelectorAll('[data-mm-bind="' + this.id + '"]');
 				
 				this.onElement(function () {
 					try {
@@ -76,17 +69,17 @@
 					} catch (e) {
 						
 					}
-				}, listeners);
+				}, subscribers);
 				
 				return this;
 			},
 			
-			update: function (value) {
-				var listeners = document.querySelectorAll('[data-mm-bind="' + this.instance + '"]');
+			broadcast: function (value) {
+				var subscribers = document.querySelectorAll('[data-mm-bind="' + this.id + '"]');
 				
 				this.onElement(function () {
 					this.innerHTML = value;
-				}, listeners);
+				}, subscribers);
 				
 				return this;
 			}

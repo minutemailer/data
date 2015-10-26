@@ -3,6 +3,7 @@
 	
 	<head>
 		<title>Minutemailer Data.js</title>
+		<link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,400,300,600,700" rel="stylesheet" type="text/css">
 		<style>
 			* {
 				-webkit-box-sizing: border-box;
@@ -13,8 +14,9 @@
 			}
 			
 			html {
-				background: #f9fbfc;
-				font: 400 16px/1.6 sans-serif;
+				background: #fff;
+				font: normal 16px/1.2 "Open Sans", sans-serif;
+				color: #646666;
 			}
 			
 			html, button, input {
@@ -23,18 +25,57 @@
 			
 			body {
 				text-rendering: optimizeLegibility;
-				max-width: 600px;
-				margin: 100px auto;
 			}
-			
-			.code {
-				padding: 1px 3px;
-				border: 1px solid #e1e1e8;
-				background: #fff;
+
+			h1 {
+				text-align: center;
+				font: 300 32px/1.2 "Open Sans", sans-serif;
+				font-size: 54px;
+				color: #474a4d;
+				margin: 0 0 10px;
+			}
+
+			h2 {
+				margin: 30px 0 0;
+				font-size: 26px;
+				font-weight: 600;
+			}
+
+			.description {
+				color: #81888b;
+				font-size: 18px;
+				margin: 0;
+				line-height: 1.4;
+				text-align: center;
+			}
+
+			.container {
+				padding: 100px 20px;
+				position: relative;
+				max-width: 1000px;
+				margin: 0 auto;
+			}
+
+			.minutemailer {
+				margin: 0;
+				display: block;
+				position: absolute;
+				top: 25px;
+				left: 0;
+				text-indent: -9999px;
+				width: 180px;
+				height: 27px;
+				background: url("https://minutemailer.com/assets/svg/minutemailer-logo.svg") no-repeat;
+				background-size: 100%;
 			}
 			
 			p {
-				margin: 0 0 10px;
+				line-height: 1.5;
+				margin: 30px 0 0;
+			}
+
+			.section {
+				margin-top: 80px;
 			}
 			
 			section {
@@ -42,28 +83,92 @@
 				padding-top: 30px;
 				border-top: 1px solid #e1e1e8;
 			}
+
+			.btn {
+				border-radius: 3px;
+				-moz-box-sizing: border-box;
+				-webkit-box-sizing: border-box;
+				box-sizing: border-box;
+				padding: 0 10px;
+				margin: 0 0 0 15px;
+				line-height: 32px;
+				height: 32px;
+				border: 1px solid #666;
+				text-align: center;
+				display: inline-block;
+				font-size: 12px;
+				font-weight: 400;
+				color: #333;
+				background: transparent;
+				outline: none;
+				text-decoration: none;
+				cursor: pointer;
+				font-family: "Open Sans", sans-serif;
+			}
+
+			.btn:hover {
+				border-color: #a6a6a6;
+				color: #a6a6a6;
+			}
+
+			.fork {
+				position: absolute;
+				top: 25px;
+				right: 0;
+			}
 		</style>
+		<link rel="stylesheet" type="text/css" href="prism.css">
 	</head>
 	
 	<body>
-		<h1>Data.js</h1>
+		<div class="container">
+			<div class="minutemailer">Minutemailer</div>
+			<a href="https://github.com/minutemailer/data" class="btn fork">Fork this on GitHub</a>
+
+			<h1>Data.js</h1>
+			<p class="description">No magic, just a simple way to publish a string to one or multiple elements. Data.js is using the UMD pattern to make it work with AMD, CommonJS and as a global object on the window.</p>
+
+			<div class="section">
+				<h2>Install</h2>
+
+				<p>This package is available on npm as <strong>mm-data</strong>. Install it using <code>npm install mm-data</code> or just download the mm-data.min.js.</p>
+			</div>
+
+			<div class="section">
+				<h2>Use it</h2>
+
+				<p>Using Data.js is super easy, so to get you started look at the examples below. If you don't use an AMD or CommonJS system then you'll have <strong>mmData</strong> available as an object on window.</p>
+
+				<pre><code class="language-js">var Data = require('mm-data');
+
+/** Broadcast a messag to all subscribers of "new_messages" */
+Data('new_messages').broadcast('10');
+
+/** Subscribe to "new_messages" */
+Data('new_messages').subscribe(element);
+
+/** Unsubscribe the element */
+Data('new_messages').unsubscribe(element);
+
+/** Unsubscribe all subscribers */
+Data('new_messages').removeSubscribers();
+
+/** You can chain methods any way you want */
+Data('new_messages').subscribe(element).broadcast('20').unsubscribe(element);
+
+/** You can also of course store the data instance in a variable */
+var newMessages = Data('new_messages');
+
+newMessages.broadcast('21');</code></pre>
+
+				<p>When you subscribe an element, the element receives a data attribute, like this: <strong>data-mm-bind="new_messages"</strong>. You can therefor set this attribute manually on elements in your HTML code. Usually you will use this method to subscribe elements. You can of course unsubscribe manually subscribed elements like you normally would.</p>
+			</div>
+		</div>
 		
-		<section>
-			<p>This value is listening to <span class="code">message</span>: <strong class="data" id="aMessage" data-mm-bind="message">waiting</strong></p>
-			<p><small>Type in <code class="code">mmData('message').update('Hi there!');</code> in the console to update the value.</small></p>
-		</section>
-		
-		<section>
-			<p>You can remove all listeners or just on single elements. To remove a listener: <code class="code">mmData(element).unbind()</code>. To remove all listeners: <code class="code">mmData('message').removeListeners();</code></p>
-		</section>
-		
-		<section>
-			<p>You bind elements by adding the attribute <code class="code">data-mm-bind="message"</code> to the element. If you want to programmatically bind an element you can use <code class="code">mmData(element).bind('message')</code></p>
-		</section>
-		
+		<script src="prism.js"></script>
 		<script src="data.js"></script>
 		<script>
-			mmData('message').update('mjau');
+			MinuteData('message').broadcast('mjau');
 		</script>
 	</body>
 	
